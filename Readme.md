@@ -9,13 +9,17 @@ To build and run using IntelliJ IDEA do next steps:
 * hit ok and then press Run button on the toolbar
 * profit! Server started
 
+root url of started project is **localhost:8080/IATest_war/**
+
 ##MySQL part
 #####Application uses database(MySQL), so we need to install and setup it with the parameters:
-* username = root
+create user with all privileges for iatest SCHEMA
+* username = userIA
 * password = 1234
+* authenticate type = standart
+
+
 * port = 3306
-
-
 * URL = localhost
 * Schema name = iatest
 ####SQL dump(Self-Contained) file is located on root of the project, so you can easily create schema and tables using data import in MySQL Workbench
