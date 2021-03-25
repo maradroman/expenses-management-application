@@ -11,6 +11,8 @@ To build and run using IntelliJ IDEA do next steps:
 
 * Profit! Server started at localhost:8080/IATest_war/
 
+#####You can change address of server by changing application context(edit configurations -> TomCat -> deployment -> application context)
+
 
 ##MySQL part
 #####Application uses database(MySQL), so we need to install and setup it with the parameters:
