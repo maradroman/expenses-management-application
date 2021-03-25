@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import entity.ExpenseEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
-import servlet.ExpensesServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +11,16 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JsonHandler {
+    public static JSONObject jsonObject;
+    public static Date date;
+    public static String formattedDate;
+    public static double amount;
+    public static String currency;
+    public static String product;
+
     public static void sendJson(HttpServletResponse response, Object expense) throws IOException {
         String expenseJsonString = new Gson().toJson(expense);
 
@@ -27,36 +34,22 @@ public class JsonHandler {
     public static ExpenseEntity jsonToExpense(HttpServletRequest request) throws JSONException, ParseException {
         ExpenseEntity expense = new ExpenseEntity();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        ExpensesServlet.jsonObject = new JSONObject(getBody(request));
+        jsonObject = new JSONObject(getBody(request));
 
         try {
-            ExpensesServlet.date = format.parse(ExpensesServlet.jsonObject.getString("date"));
+            date = format.parse(jsonObject.getString("date"));
+            formattedDate = format.format(date);
+            amount = Double.parseDouble(jsonObject.getString("amount"));
+            currency = jsonObject.getString("currency");
+            product = jsonObject.getString("product");
+        } catch (Exception e) {
+            e.printStackTrace();
 
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
-        ExpensesServlet.formattedDate = format.format(ExpensesServlet.date);
-        try {
-            ExpensesServlet.amount = Double.parseDouble(ExpensesServlet.jsonObject.getString("amount"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //currency processing
-        try {
-            ExpensesServlet.currency = ExpensesServlet.jsonObject.getString("currency");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //product processing
-        try {
-            ExpensesServlet.product = ExpensesServlet.jsonObject.getString("product");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        expense.setAmount(ExpensesServlet.amount);
-        expense.setDate(ExpensesServlet.formattedDate);
-        expense.setCurrency(ExpensesServlet.currency);
-        expense.setProduct(ExpensesServlet.product);
+        expense.setAmount(amount);
+        expense.setDate(formattedDate);
+        expense.setCurrency(currency);
+        expense.setProduct(product);
         return expense;
     }
 

@@ -26,12 +26,8 @@ import java.util.stream.Collectors;
 @WebServlet(name = "Expenses", urlPatterns = "/expenses")
 public class ExpensesServlet extends HttpServlet {
     public static List<ExpenseEntity> expenseArrayList = new ArrayList<>();
-    public static JSONObject jsonObject;
     public static Date date;
-    public static String formattedDate;
-    public static double amount;
     public static String currency;
-    public static String product;
     static ExpenseDAO expenseDAO = new ExpenseDAOImpl();
 
 
