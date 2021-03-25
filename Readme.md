@@ -7,9 +7,10 @@ To build and run using IntelliJ IDEA do next steps:
 * write down TomCat folder path and hit ok button
 * on the bottom you will see warning: "No artifacts marked on deployment", hit **fix** button and choose **IATest:war**
 * hit ok and then press Run button on the toolbar
-* profit! Server started
 
-root url of started project is **localhost:8080/IATest_war/**
+
+* Profit! Server started at localhost:8080/IATest_war/
+
 
 ##MySQL part
 #####Application uses database(MySQL), so we need to install and setup it with the parameters:
