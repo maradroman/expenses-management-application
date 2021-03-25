@@ -4,7 +4,6 @@ import dao.ExpenseDAO;
 import dao.ExpenseDAOImpl;
 import entity.ExpenseEntity;
 import org.json.JSONException;
-import org.json.JSONObject;
 import util.JsonHandler;
 
 import javax.servlet.ServletException;
@@ -12,7 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 
 
 @WebServlet(name = "Expenses", urlPatterns = "/expenses")
@@ -56,14 +54,10 @@ public class ExpensesServlet extends HttpServlet {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
             date = format.parse(dateParameter);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        expenseArrayList = expenseDAO.getByDate(date);
-        try {
+            expenseArrayList = expenseDAO.getByDate(date);
             expenseDAO.deleteExpensesByDate(date);
             JsonHandler.sendJson(resp, expenseArrayList);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
